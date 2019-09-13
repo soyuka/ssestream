@@ -10,13 +10,13 @@ Note I merged together:
 ## Installation
 
 ```
-npm install sse-stream
+npm install ssestream2
 ```
 
 Or:
 
 ```
-yarn add sse-stream
+yarn add ssestream2
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ yarn add sse-stream
 In a `(req, res)` handler for a [`request`](https://nodejs.org/api/http.html#http_event_request) event, Express [#get](https://expressjs.com/en/4x/api.html#app.get.method) route or similar:
 
 ```javascript
-const SseStream = require('sse-stream')
+const SseStream = require('ssestream2')
 
 function (req, res) {
   const headers = {'CUSTOM-HEADER': 'FOO'}
