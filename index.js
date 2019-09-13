@@ -5,6 +5,16 @@ function dataString(data) {
   return data.split(/\r\n|\r|\n/).map(line => `data: ${line}\n`).join('')
 }
 
+// 2kB padding for IE
+const iepadding = Array(2049).join(' ');
+
+const DEFAULT_HEADERS = {
+  'Content-Type': 'text/event-stream; charset=utf-8',
+  'Transfer-Encoding': 'identity',
+  'Cache-Control': 'no-cache',
+  Connection: 'keep-alive',
+}
+
 /**
  * Courtesey of https://gist.github.com/gitawego/8ef33ec7d895498f2eedd95eafa835bb
  * Transforms "messages" to W3C event stream content.
@@ -20,8 +30,11 @@ function dataString(data) {
  * If this stream is piped to an HTTP Response, it will set appropriate headers.
  */
 class SseStream extends Stream.Transform {
-  constructor(req) {
+  constructor(req, headers = {}) {
     super({ objectMode: true })
+    this.req = req
+    this.headers = {...DEFAULT_HEADERS, ...headers}
+
     if (req) {
       req.socket.setKeepAlive(true)
       req.socket.setNoDelay(true)
@@ -32,19 +45,18 @@ class SseStream extends Stream.Transform {
 
   pipe(destination, options) {
     if (typeof destination.writeHead === 'function') {
-      destination.writeHead(200, {
-        'Content-Type': 'text/event-stream; charset=utf-8',
-        'Transfer-Encoding': 'identity',
-        'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
-      })
+      destination.writeHead(200, this.headers)
       destination.flushHeaders()
     }
-    // 2kB padding for IE
-    destination.write(`:${Array(2049).join(' ')}\n`);
+    // padding for ie
+    destination.write(`:${iepadding}\n`);
     // Some clients (Safari) don't trigger onopen until the first frame is received.
     destination.write(':ok\n\n')
     return super.pipe(destination, options)
+  }
+
+  _destroy() {
+    this.req && this.req.destroy()
   }
 
   _transform(message, _, callback) {
