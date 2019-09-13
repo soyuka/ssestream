@@ -1,5 +1,5 @@
 {
-  "name": "ssestream",
+  "name": "sse-stream",
   "version": "1.0.0",
   "description": "Serverside event stream",
   "main": "index.js",
