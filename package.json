@@ -1,0 +1,27 @@
+{
+  "name": "ssestream",
+  "version": "1.0.0",
+  "description": "Serverside event stream",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/soyuka/ssestream.git"
+  },
+  "keywords": [
+    "sse",
+    "stream",
+    "event",
+    "serversideevent"
+  ],
+  "author": "soyuka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soyuka/ssestream/issues"
+  },
+  "homepage": "https://github.com/soyuka/ssestream#readme"
+}
