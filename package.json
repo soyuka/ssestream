@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "eventsource": "^1.0.7",
+    "eventsource": "^2.0.2",
     "mocha": "^6.2.0"
   },
   "scripts": {
