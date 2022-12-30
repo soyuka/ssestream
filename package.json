@@ -6,7 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "eventsource": "^1.0.7",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   },
   "scripts": {
     "test": "mocha"
